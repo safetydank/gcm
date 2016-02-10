@@ -14,7 +14,6 @@ type Message struct {
 	DryRun                bool                   `json:"dry_run,omitempty"`
 	Priority              string                 `json:"priority,omitempty"`
 	ContentAvailable      bool                   `json:"content_available,omitempty"`
-	Data                  map[string]interface{} `json:"data,omitempty"`
 	Notification          *Notification          `json:"notification,omitempty"`
 }
 
