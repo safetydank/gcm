@@ -159,6 +159,13 @@ func (s *Sender) Send(msg *Message, retries int) (*Response, error) {
 // updateStatus updates the status of the messages sent to devices and
 // returns the number of recoverable errors that could be retried.
 func updateStatus(msg *Message, resp *Response, allResults map[string]Result) int {
+	if msg.To != "" {
+		if resp.Results[0].Error == "Unavailable" {
+			return 1
+		} else {
+			return 0
+		}
+	}
 	unsentRegIDs := make([]string, 0, resp.Failure)
 	for i := 0; i < len(resp.Results); i++ {
 		regID := msg.RegistrationIDs[i]
@@ -197,6 +204,8 @@ func checkSender(sender *Sender) error {
 func checkMessage(msg *Message) error {
 	if msg == nil {
 		return errors.New("the message must not be nil")
+	} else if msg.To != "" {
+		return nil
 	} else if msg.RegistrationIDs == nil {
 		return errors.New("the message's RegistrationIDs field must not be nil")
 	} else if len(msg.RegistrationIDs) == 0 {

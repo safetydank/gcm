@@ -5,7 +5,8 @@ package gcm
 // Overview for more information:
 // http://developer.android.com/google/gcm/gcm.html#send-msg
 type Message struct {
-	RegistrationIDs       []string               `json:"registration_ids"`
+	To                    string                 `json:"to,omitempty"`
+	RegistrationIDs       []string               `json:"registration_ids,omitempty"`
 	CollapseKey           string                 `json:"collapse_key,omitempty"`
 	Data                  map[string]interface{} `json:"data,omitempty"`
 	DelayWhileIdle        bool                   `json:"delay_while_idle,omitempty"`
